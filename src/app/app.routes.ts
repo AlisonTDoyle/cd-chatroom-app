@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { Chatroom } from './routes/chatroom/chatroom';
+import { Chat } from './routes/chat/chat';
 
 export const routes: Routes = [
     {
         path: 'chat',
-        component: Chatroom,
+        component: Chat,
         canActivate: []
     }
 ];

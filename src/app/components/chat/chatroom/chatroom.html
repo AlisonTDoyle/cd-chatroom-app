@@ -1,0 +1,9 @@
+<div class="p-4 h-full overflow-y-auto">
+    <div *ngFor="let m of chatMessages">
+        @if (m.senderId === userId) {
+        <app-user-chat-bubble [message]="m"></app-user-chat-bubble>
+        } @else {
+        <app-other-chat-bubble [message]="m"></app-other-chat-bubble>
+        }
+    </div>
+</div>

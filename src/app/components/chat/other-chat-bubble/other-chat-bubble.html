@@ -1,10 +1,7 @@
 <div class="chat chat-start">
   <div class="chat-image avatar">
-    <div class="w-10 rounded-full">
-      <img
-        alt="Tailwind CSS chat bubble component"
-        src="https://img.daisyui.com/images/profile/demo/anakeen@192.webp"
-      />
+    <div class="w-10 h-10 rounded-full bg-base-300 items-center flex justify-center">
+      <i class="bi bi-person-fill"></i>
     </div>
   </div>
   <div class="chat-header">
@@ -12,4 +9,9 @@
     <time class="text-xs opacity-50">{{message()?.timestamp?.toLocaleTimeString()}}</time>
   </div>
   <div class="chat-bubble">{{message()?.message}}</div>
+  
+  @if (message()?.image != null) {
+  <img alt="Tailwind CSS chat bubble component" class="max-w-lg rounded-lg mt-2"
+    [src]="message()?.image.url" />
+  }
 </div>

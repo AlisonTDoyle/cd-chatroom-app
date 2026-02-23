@@ -1,0 +1,19 @@
+<div class="hero min-h-screen">
+    <div class="card bg-base-200 shadow-sm w-120 h-80">
+        <div class="card-body">
+            <h1>Login</h1>
+            <h5>Select a user to login as:</h5>
+
+            <select class="select w-full" [(ngModel)]="selectedUserId">
+                <option [ngValue]="null" disabled>Select a user</option>
+                <option *ngFor="let user of users" [ngValue]="user.id">
+                    {{ user.name }}
+                </option>
+            </select>
+
+            <button class="btn btn-primary" (click)="login()">
+                Login
+            </button>
+        </div>
+    </div>
+</div>

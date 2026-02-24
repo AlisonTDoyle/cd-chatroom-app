@@ -15,21 +15,21 @@ import { Observable } from 'rxjs';
 export class Chatroom implements OnInit {
   userId = 1;
   chatMessages: Message[] = [];
-  chatMessages$:Observable  <Message[]> | undefined;
+  chatMessages$: Observable<Message[]> | undefined;
 
-  constructor(private apiService: ApiService,  private zone: NgZone) { }
+  constructor(private apiService: ApiService, private zone: NgZone) { }
 
   ngOnInit() {
-  this.chatMessages$ = this.apiService.readChatroomMessages(1);
+    this.chatMessages$ = this.apiService.readChatroomMessages(1);
   }
 
   readChatroomMessages(chatroomId: number) {
-  this.apiService.readChatroomMessages(chatroomId).subscribe(
-    (response) => {
-      this.zone.run(() => {
-        this.chatMessages = response || [];
-      });
-    }
-  );
-}
+    this.apiService.readChatroomMessages(chatroomId).subscribe(
+      (response) => {
+        this.zone.run(() => {
+          this.chatMessages = response || [];
+        });
+      }
+    );
+  }
 }

@@ -1,14 +1,23 @@
 <div class="h-full w-full p-4">
-    <div class="bg-base-200 rounded p-4">
-        <div class="grid grid-cols-[80%_10%_10%] items-center">
-            <input type="text" placeholder="Type your message here..." class="p-2 border rounded" />
-            <button class="btn btn-outline btn-primary h-11 w-11 mx-2">
-                <i class="bi bi-file-image-fill"></i>
-            </button>
-            <button class="btn btn-outline btn-primary h-11 w-11 mx-2">
-                <i class="bi bi-send-fill"></i>
-            </button>
-        </div>
-        <p class="text-error italic my-2"><b>Error:</b> Something went wrong</p>
+  <div class="bg-base-200 rounded p-4">
+    <div class="grid grid-cols-[45%_45%_10%] gap-2 items-center">
+
+      <input type="text" placeholder="Type your message here..." class="input w-full" [(ngModel)]="enteredMessage" />
+
+      <input type="file" class="file-input w-full" />
+
+      <button class="btn btn-primary h-11 w-11 mx-2" (click)="sendMessage()">
+        @if (sendingMessage) {
+        <span class="loading loading-spinner loading-xl"></span>
+        }
+        @else {
+        <i class="bi bi-send-fill"></i>
+        }
+      </button>
+
     </div>
+    <p class="text-error italic my-2">
+      <b>Error:</b> Something went wrong
+    </p>
+  </div>
 </div>

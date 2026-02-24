@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { Message } from '../../../interfaces/message';
 
 @Component({
   selector: 'app-user-chat-bubble',
@@ -7,11 +8,5 @@ import { Component, input } from '@angular/core';
   styleUrl: './user-chat-bubble.css',
 })
 export class UserChatBubble {
-  message = input<{
-      senderId:number,
-      senderName: string,
-      message: string,
-      timestamp: Date,
-      image: any
-    }>();
+  message = input<Message>();
 }

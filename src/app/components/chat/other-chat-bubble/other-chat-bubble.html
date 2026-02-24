@@ -5,13 +5,13 @@
     </div>
   </div>
   <div class="chat-header">
-    {{message()?.senderName}}
-    <time class="text-xs opacity-50">{{message()?.timestamp?.toLocaleTimeString()}}</time>
+    Other Person
+    <time class="text-xs opacity-50">{{message()?.timestamp}}</time>
   </div>
   <div class="chat-bubble">{{message()?.message}}</div>
-  
+<!--   
   @if (message()?.image != null) {
   <img alt="Tailwind CSS chat bubble component" class="max-w-lg rounded-lg mt-2"
     [src]="message()?.image.url" />
-  }
+  } -->
 </div>

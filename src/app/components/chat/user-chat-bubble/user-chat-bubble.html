@@ -6,11 +6,11 @@
   </div>
   <div class="chat-header">
     You
-    <time class="text-xs opacity-50">{{message()?.timestamp?.toLocaleTimeString()}}</time>
+    <time class="text-xs opacity-50">{{message()?.timestamp}}</time>
   </div>
   <div class="chat-bubble bg-primary text-white">{{message()?.message}}</div>
-  @if (message()?.image != null) {
+  <!-- @if (message()?.image != null) {
   <img alt="Tailwind CSS chat bubble component" class="max-w-lg rounded-lg mt-2"
     [src]="message()?.image.url" />
-  }
+  } -->
 </div>

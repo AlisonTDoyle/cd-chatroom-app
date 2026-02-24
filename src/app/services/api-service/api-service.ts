@@ -11,7 +11,8 @@ export class ApiService {
   private apiUrl: string = environment.apiUrl;
   private chatroomUrl: string = this.apiUrl + `/chatroom`;
   
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { 
+  }
 
   public sendMessage(message: string, chatroomId: number, senderId: number, imageUrl?: string) {
     let url = this.chatroomUrl + `/${chatroomId}`;
@@ -28,5 +29,15 @@ export class ApiService {
         tap((data) => {
           return data;
         }));
+    }
+
+    public readChatroomMessages(chatroomId: number) {
+      let url = this.chatroomUrl + `/${chatroomId}`;
+
+      return this.httpClient.get<Message[]>(url).pipe(
+        tap((data) => {
+          return data;
+        })
+      )
     }
 }

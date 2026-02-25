@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, Input, NgZone } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../../services/api-service/api-service';
 import { ChangeDetectorRef } from '@angular/core';
@@ -11,6 +11,19 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrl: './message-box.css',
 })
 export class MessageBox {
+  @Input() userId: number | null = null;
+
+  private _chatroomId: number = -1;
+  @Input()
+  set chatroomId(value: number) {
+    if (value !== this._chatroomId) {
+      this._chatroomId = value;
+    }
+  }
+  get chatroomId(): number {
+    return this._chatroomId;
+  }
+
   public enteredMessage: string = '';
   public sendingMessage: boolean = false;
 
@@ -19,7 +32,7 @@ export class MessageBox {
   public sendMessage() {
     this.sendingMessage = true;
 
-    this.apiService.sendMessage(this.enteredMessage, 1, 1).subscribe({
+    this.apiService.sendMessage(this.enteredMessage, this.chatroomId, this.userId!).subscribe({
       next: (data) => {
         this.sendingMessage = false;
         this.enteredMessage = '';

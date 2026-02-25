@@ -1,16 +1,19 @@
-<div class="p-4 bg-base-200 rounded-lg h-full">
-    <h1>Chatroom Name</h1>
-    <fieldset class="fieldset">
-        <input type="text" class="input join-item" placeholder="Search messages" />
-    </fieldset>
-    <fieldset class="fieldset">
-        <select class="select">
-            <option disabled selected>Specify Sender <span class="opacity-70 italic">(Optional)</span></option>
-            <option>Chrome</option>
-            <option>FireFox</option>
-            <option>Safari</option>
-            <option value="">None</option>
-        </select>
-    </fieldset>
-    <button class="btn btn-primary w-full my-2">Search Messages</button>
+<div *ngIf="chatroom" class="p-4 bg-base-200 rounded-lg h-full">
+  <h1>{{ chatroom?.name || "" }}</h1>
+
+  <fieldset class="fieldset">
+      <input type="text" class="input join-item" placeholder="Search messages" />
+  </fieldset>
+
+  <fieldset class="fieldset">
+      <select class="select">
+          <option disabled selected>Specify Sender <span class="opacity-70 italic">(Optional)</span></option>
+          <option>Chrome</option>
+          <option>FireFox</option>
+          <option>Safari</option>
+          <option value="">None</option>
+      </select>
+  </fieldset>
+
+  <button class="btn btn-primary w-full my-2">Search Messages</button>
 </div>

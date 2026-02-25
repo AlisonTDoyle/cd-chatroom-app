@@ -1,5 +1,5 @@
 <div class="p-4">
-    <div *ngFor="let m of chatMessages$ | async">
+    <div *ngFor="let m of chatMessages">
       <app-user-chat-bubble *ngIf="m.senderId === userId" [message]="m"></app-user-chat-bubble>
       <app-other-chat-bubble *ngIf="m.senderId !== userId" [message]="m"></app-other-chat-bubble>
     </div>

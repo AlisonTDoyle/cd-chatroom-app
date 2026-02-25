@@ -1,10 +1,9 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, Input, NgZone } from '@angular/core';
 import { UserChatBubble } from '../user-chat-bubble/user-chat-bubble';
 import { CommonModule } from '@angular/common';
 import { OtherChatBubble } from "../other-chat-bubble/other-chat-bubble";
 import { ApiService } from '../../../services/api-service/api-service';
 import { Message } from '../../../interfaces/message';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-chatroom',
@@ -12,22 +11,32 @@ import { Observable } from 'rxjs';
   templateUrl: './chatroom.html',
   styleUrls: ['./chatroom.css'],
 })
-export class Chatroom implements OnInit {
-  userId = 1;
+export class Chatroom {
+  @Input() userId: number | null = null;
+
+  private _chatroomId: number = -1;
+  @Input()
+  set chatroomId(value: number) {
+    if (value !== this._chatroomId) {
+      this._chatroomId = value;
+      this.loadMessages(); // refetch whenever chatroomId changes
+    }
+  }
+  get chatroomId(): number {
+    return this._chatroomId;
+  }
+
   chatMessages: Message[] = [];
-  chatMessages$: Observable<Message[]> | undefined;
 
   constructor(private apiService: ApiService, private zone: NgZone) { }
 
-  ngOnInit() {
-    this.chatMessages$ = this.apiService.readChatroomMessages(1);
-  }
+  private loadMessages() {
+    if (this._chatroomId === -1) return;
 
-  readChatroomMessages(chatroomId: number) {
-    this.apiService.readChatroomMessages(chatroomId).subscribe(
-      (response) => {
+    this.apiService.readChatroomMessages(this._chatroomId).subscribe(
+      (messages) => {
         this.zone.run(() => {
-          this.chatMessages = response || [];
+          this.chatMessages = messages || [];
         });
       }
     );

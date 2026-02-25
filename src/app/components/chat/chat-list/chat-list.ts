@@ -1,35 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Chatroom } from '../../../interfaces/chatroom';
 
 @Component({
   selector: 'app-chat-list',
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   templateUrl: './chat-list.html',
-  styleUrl: './chat-list.css',
+  styleUrls: ['./chat-list.css'],
+  standalone: true // <- make sure this is true if using imports array
 })
-export class ChatList {
-  chats: any[] = [
-    {
-      id: 1,
-      name: 'Chatroom 1',
-      color: 'bg-blue-400'
-    },
-    {
-      id: 2,
-      name: 'Chatroom 2',
-      color: 'bg-green-400'
-    },
-    {
-      id: 3,
-      name: 'Chatroom 3',
-      color: 'bg-red-400'
-    },
-    {
-      id: 4,
-      name: 'Chatroom 4',
-      color: 'bg-yellow-400'
-    }
-  ]
+export class ChatList{
+  @Input() chats: Chatroom[] = [];
+  @Output() chatSelected = new EventEmitter<Chatroom>();
+
+  constructor() { 
+  }
+
+  public chatClicked(chat: Chatroom) {
+    this.chatSelected.emit(chat);
+  }
 }

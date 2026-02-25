@@ -1,11 +1,11 @@
 <div class="chat chat-start">
   <div class="chat-image avatar">
-    <div class="w-10 h-10 rounded-full bg-base-300 items-center flex justify-center">
+    <div class="w-10 h-10 rounded-full items-center flex justify-center bg-base-300">
       <i class="bi bi-person-fill"></i>
     </div>
   </div>
   <div class="chat-header">
-    Other Person
+    {{message()?.sender?.name}}
     <time class="text-xs opacity-50">{{message()?.timestamp}}</time>
   </div>
   <div class="chat-bubble">{{message()?.message}}</div>

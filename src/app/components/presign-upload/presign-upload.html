@@ -1,0 +1,28 @@
+<div class="p-8">
+    <div class="upload-container">
+    
+      <h3>Paste Presign Response</h3>
+    
+      <textarea
+      class="input h-100 w-full"
+        rows="10"
+        [(ngModel)]="presignRaw"
+        placeholder="Paste full presign JSON response here">
+      </textarea>
+    
+      <br /><br />
+    
+      <input class="file-input w-full" type="file" (change)="onFileSelected($event)" />
+    
+      <br /><br />
+    
+      <button class="btn btn-primary" (click)="upload()" [disabled]="!selectedFile || !presignRaw || uploading">
+        Upload
+      </button>
+    
+      <div *ngIf="uploading">Uploading...</div>
+    
+      <pre *ngIf="uploadResult">{{ uploadResult }}</pre>
+    
+    </div>
+</div>

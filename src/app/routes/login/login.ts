@@ -17,9 +17,9 @@ export class Login {
   @Output() loggedInUser = new EventEmitter<number>();
 
   users: { id: number, name: string }[] = [
-    { id: 1, name: 'Alice' },
-    { id: 2, name: 'Bob' },
-    { id: 3, name: 'Charlie' }
+    { id: 1, name: 'User 1' },
+    { id: 2, name: 'User 2' },
+    { id: 3, name: 'User 3' }
   ]
 
   selectedUserId: number | null = null;

@@ -15,34 +15,31 @@ export class ApiService {
   constructor(private httpClient: HttpClient) {
   }
 
-  private getPresignUrl(userId: number, filename: string) {
+  private getPresignUrl(userId: number, file: File) {
     const url = `${this.apiUrl}/user/${userId}/presign`;
 
-    const payload = { userId: userId.toString(), filename };
+    const payload = {
+      "userId": userId.toString(),
+      "filename": file.name,
+      "contentType": file.type
+    };
 
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    return this.httpClient.post<S3UploadResponse>(url, payload, { headers })
+    return this.httpClient.post<S3UploadResponse>(url, payload)
       .pipe(
         tap((data) => data)
       );
-}
+  }
 
   public sendMessage(message: string, chatroomId: number, senderId: number, image?: File) {
     // Check if image needs to be uploaded first and upload image
-    // let imageUrl: string | null = null;
-    // if (image) {
-    //   this.getPresignUrl(senderId, image.name).subscribe((res) => { 
-    //     let body = JSON.parse(res.body);
-    //     console.log('Received presign URL:', JSON.parse(res.body));
+    let imageUrl: string | null = null;
+    if (image) {
+      this.getPresignUrl(senderId, image).subscribe((res) => {
+        console.log('Received presign URL:', res);
+      });
 
-    //     if (body.error != null) {
-    //       return body.error;
-    //     }
-    //   });
-
-    //   // Upload image
-    // }
+      // Upload image
+    }
 
     let url = this.chatroomUrl + `/${chatroomId}`;
 
@@ -64,6 +61,16 @@ export class ApiService {
 
   public readChatroomMessages(chatroomId: number) {
     let url = this.chatroomUrl + `/${chatroomId}`;
+
+    return this.httpClient.get<Message[]>(url).pipe(
+      tap((data) => {
+        return data;
+      })
+    )
+  }
+
+  public readChatroomMessagesFromUser(chatroomId:number, userId: number) {
+    let url = this.chatroomUrl + `/${chatroomId}?senderId=${userId}`;
 
     return this.httpClient.get<Message[]>(url).pipe(
       tap((data) => {

@@ -25,8 +25,10 @@ export class MessageBox {
   }
 
   public enteredMessage: string = '';
+  public presignUrl: string = '';
   public sendingMessage: boolean = false;
   public selectedFile: File | null = null;
+  public sendingFile: boolean = false;
 
   constructor(private apiService: ApiService, private zone: NgZone, private cdr: ChangeDetectorRef) { }
 
@@ -34,13 +36,13 @@ export class MessageBox {
     this.sendingMessage = true;
 
     this.apiService.sendMessage(this.enteredMessage, this.chatroomId, this.userId!, this.selectedFile || undefined).subscribe({
-      next: (data:any) => {
+      next: (data: any) => {
         this.sendingMessage = false;
         this.enteredMessage = '';
         this.selectedFile = null;
         this.cdr.detectChanges();
       },
-      error: (err:any) => {
+      error: (err: any) => {
         this.zone.run(() => {
           console.error('Request failed:', err);
           this.sendingMessage = false;

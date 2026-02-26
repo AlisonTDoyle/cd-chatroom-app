@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Message } from '../../interfaces/message';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, tap } from 'rxjs';
 import { Chatroom } from './../../interfaces/chatroom';
 
@@ -15,7 +15,35 @@ export class ApiService {
   constructor(private httpClient: HttpClient) {
   }
 
-  public sendMessage(message: string, chatroomId: number, senderId: number, imageUrl?: string) {
+  private getPresignUrl(userId: number, filename: string) {
+    const url = `${this.apiUrl}/user/${userId}/presign`;
+
+    const payload = { userId: userId.toString(), filename };
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.httpClient.post<S3UploadResponse>(url, payload, { headers })
+      .pipe(
+        tap((data) => data)
+      );
+}
+
+  public sendMessage(message: string, chatroomId: number, senderId: number, image?: File) {
+    // Check if image needs to be uploaded first and upload image
+    // let imageUrl: string | null = null;
+    // if (image) {
+    //   this.getPresignUrl(senderId, image.name).subscribe((res) => { 
+    //     let body = JSON.parse(res.body);
+    //     console.log('Received presign URL:', JSON.parse(res.body));
+
+    //     if (body.error != null) {
+    //       return body.error;
+    //     }
+    //   });
+
+    //   // Upload image
+    // }
+
     let url = this.chatroomUrl + `/${chatroomId}`;
 
     const payload: Message = {

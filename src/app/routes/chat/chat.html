@@ -3,7 +3,7 @@
         <app-chat-list [chats]="chatrooms()" (chatSelected)="selectedChatroom = $event"></app-chat-list>
     </div>
 
-    <div class="col-span-2">
+    <div class="col-span-2 overflow-y-scroll">
         <app-chatroom [chatroomId]="selectedChatroom?.id || -1" [userId]="userId()"></app-chatroom>
     </div>
 

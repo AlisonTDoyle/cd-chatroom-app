@@ -4,7 +4,7 @@
 
       <input type="text" placeholder="Type your message here..." class="input w-full" [(ngModel)]="enteredMessage" />
 
-      <input type="file" class="file-input w-full" />
+      <input type="file" class="file-input w-full" (change)="onFileSelected($event)" />
 
       <button class="btn btn-primary h-11 w-11 mx-2" (click)="sendMessage()">
         @if (sendingMessage) {
